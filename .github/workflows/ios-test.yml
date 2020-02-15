@@ -12,7 +12,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Test
+    - name: Generate by Sourcery
+      run: |
+        sourcery \
+          --sources AutoPreviewableTests \
+          --templates Sourcery/templates \
+          --output AutoPreviewableTests/CodeGenerated/AutoPreviewable.swift
+    - name: Test on iOS Simulator
       run: |
         xcodebuild test \
           -project AutoPreviewable.xcodeproj \
